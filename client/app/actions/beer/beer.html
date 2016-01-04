@@ -1,0 +1,24 @@
+<navbar></navbar>
+
+<div class="container">
+  <p>Page to add new beers to database.</p>
+    <form class="form" ng-submit="submit()" ng-controller="BeerCtrl">
+      <div class="form-group">
+        <label><strong>Name</strong></label>
+        <textarea class="form-control" ng-model="beername" rows="1" required>{{beername}}</textarea><br>
+      </div>
+      <div class="form-group">
+        <label><strong>Info</strong></label>
+        <textarea class="form-control" ng-model="beerinfo" rows="4" required>{{beerinfo}}</textarea><br>
+      </div>
+      <input type="hidden" ng-model="beerid" value="{{beerid}}">
+      <input type="hidden" ng-model="beeredit" value="{{beeredit}}">
+      <div class="form-group">
+        <input type="submit" id="submit" value="Save Beer" class="btn btn-lg btn-primary"></input>
+      </div>
+    </form>
+
+    <button ng-click="getbeers()" class="btn btn-lg btn-primary">test</button>
+</div>
+
+

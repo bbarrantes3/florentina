@@ -1,0 +1,74 @@
+<navbar></navbar>
+
+<div class="container">
+  <p>Page to request more beer.</p>
+
+    <form class="form" ng-submit="submit()" ng-controller="RequestController">
+      <div class="form-group">
+      <label><strong>Select the Keg(s) capacity</strong></label>
+      <select class="form-control" name="units" ng-model="unit">
+        <option value="5">5 gallons [18.93 liters]</option>
+        <option value="8" >8 gallons [30.28 liters]</option>
+        <option value="12">12 gallons [45.42 liters]</option>
+      </select><br><br>
+      </div>
+
+      <div class="form-group">
+      <label><strong>Type the number of Kegs for this order</strong></label>
+      <textarea class="form-control" ng-model="quantity" rows="1"></textarea><br>
+      </div>
+
+      <div class="form-group">
+      <label><strong>Select the Beer you want to order</strong></label><!-- This needs to be loaded from beers list-->
+      <select class="form-control" name="beers" ng-model="beer_name">
+        <option ng-repeat="b in beers" value="{{b.name}}">{{b.name}}</option>
+      </select><br>
+      </div>
+
+      <div class="form-group">
+      <label><strong>Request Notes</strong></label>
+      <textarea class="form-control" ng-model="notes" rows="4"></textarea><br>
+      </div>
+
+      
+      <input type="hidden" ng-model="beerid" value="">
+      <input type="hidden" ng-model="beeredit" value="">
+      <div class="form-group">      
+      <input type="submit" id="submit" value="Submit Request" class="btn btn-lg btn-primary"></input>
+      </div>
+    </form>
+
+    <br><br>
+    
+    <table class="table">
+      <thead>
+        <tr>
+           <th>Request ID</th>
+           <th>Client Name</th>
+           <th>Beer Name</th>
+           <th>Keg size</th>
+           <th>Unit</th>
+           <th>Date</th>
+           <th>Notes</th>
+           <th>Order Price</th>
+           <th>Status</th>
+           <th>Actions</th>
+        </tr>
+       </thead>
+      <tr ng-repeat="request in requests">
+        <td>{{ request._id }}</td>
+        <td value="{{request.client_id}}">{{ request.client_name }}</td>
+        <td>{{ request.beer_name }}</td>
+        <td>{{ request.keg_size }}</td>
+        <td>{{ request.total_kegs }}</td>
+        <td>{{ request.timestamp }}</td>
+        <td>{{ request.notes }}</td>
+        <td>{{ request.order_price }}</td>
+        <td>{{ request.status }}</td>
+        <td> <a ng-click="view(request)" class="edit"><span class="glyphicon glyphicon-edit  pull-right"></span></a> </td>
+      </tr>
+    </table>
+
+  
+  <!--button class="btn btn-lg btn-primary" onclick="location.href = '/';">Request Beer</button-->
+</div>

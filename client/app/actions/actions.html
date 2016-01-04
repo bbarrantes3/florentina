@@ -1,0 +1,15 @@
+<navbar></navbar>
+
+<div class="container">
+  <p>Page to add new beers to database, as well as edit and delete them.</p>
+  <ul class="list-group">
+  	<!--ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in main.awesomeThings"-->
+    <li class="list-group-item" ng-repeat="beer in beers">
+        <strong>{{beer.name}}</strong><br>
+        <span class="text-muted">{{beer.info}}</span>
+        <a ng-click="delete(beer)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <a ng-click="edit(beer)" class="edit"><span class="glyphicon glyphicon-edit  pull-right"></span></a>
+    </li>
+  </ul>
+  <button class="btn btn-lg btn-primary" onclick="location.href = '/beer';">New Beer</button>
+</div>
