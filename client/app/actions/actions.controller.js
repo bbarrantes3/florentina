@@ -13,7 +13,6 @@ function ActionController($scope, $http, beers, $location) {
 	$scope.delete = function(thing) {
 		$http.delete('/api/beers/' + thing._id);      
     	$scope.beers.splice(this.$index, 1);
-    	console.log($scope.beers);
     	alert('Beer deleted successfully');
 	};
 

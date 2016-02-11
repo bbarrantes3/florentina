@@ -21,7 +21,7 @@
       
       <div class="form-group">
       <label><strong>Select the Keg(s) capacity</strong></label>
-      <select class="form-control" name="units" ng-model="unit">
+      <select class="form-control" ng-model="kegsize">
         <option value="5">5 gallons [18.93 liters]</option>
         <option value="8" >8 gallons [30.28 liters]</option>
         <option value="12">12 gallons [45.42 liters]</option>
@@ -30,42 +30,42 @@
 
       <div class="form-group">
       <label><strong>Type the number of Kegs for this order</strong></label>
-      <textarea class="form-control" ng-model="quantity" rows="1">{{request.total_kegs}}</textarea><br>
+      <textarea class="form-control" ng-model="totalkegs" rows="1">{{totalkegs}}</textarea><br>
       </div>
 
       <div class="form-group">
       <label><strong>Select the Beer you want to order</strong></label>
-      <select class="form-control" name="beers" ng-model="beer_name">
+      <select class="form-control" name="beers" ng-model="beername">
         <option ng-repeat="b in beers" value="{{b.name}}">{{b.name}}</option>
       </select><br>
       </div>
 
       <div class="form-group">
       <label><strong>Request Notes</strong></label>
-      <textarea class="form-control" ng-model="notes" rows="4">{{requestnotes}}</textarea><br>
+      <textarea class="form-control" ng-model="notes" rows="4">{{notes}}</textarea><br>
       </div>
 
       <div class="form-group">
       <label><strong>Order status</strong></label>
-      <textarea class="form-control" ng-model="status" rows="1">{{request.status}}</textarea><br>
+      <textarea class="form-control" ng-model="status" rows="1">{{status}}</textarea><br>
       </div>
 
       <div class="form-group">
       <label><strong>Order time and date</strong></label>
-      <textarea class="form-control" ng-model="timestamp" rows="1">{{request.timestamp}}</textarea><br>
+      <textarea class="form-control" ng-model="timestamp" rows="1">{{timestamp}}</textarea><br>
       </div>
 
       <div class="form-group">
       <label><strong>Client Name</strong></label>
-      <textarea class="form-control" ng-model="clientname" rows="1">{{request.client_name}}</textarea><br>
+      <textarea class="form-control" ng-model="clientname" rows="1">{{clientname}}</textarea><br>
       </div>
 
       <div class="form-group">
       <label><strong>Order price</strong></label>
-      <textarea class="form-control" ng-model="price" rows="1"></textarea>{{request.order_price}}<br>
+      <textarea class="form-control" ng-model="orderprice" rows="1"></textarea><br>
       </div>
       
-      <input type="hidden" ng-model="clientid" value="{{request.client_id}}">
+      <input type="hidden" ng-model="clientid" value="{{clientid}}">
       
       <div class="form-group">      
       <input type="submit" id="submit" value="Save Request" class="btn btn-lg btn-primary"></input>

@@ -1,10 +1,10 @@
+
 'use strict';
 (function() {
 
-function RequestController($scope, $http, $location, Auth) {
+function RequestController($scope, $http, $location, Auth, reqservice) {
 	var self = this;
-	//this.beers = [];
-
+	
 	//Get beers to be loaded in a combo box
 	$http.get('/api/beers').then(function(response) {
 	    $scope.beers = response.data;
@@ -12,9 +12,28 @@ function RequestController($scope, $http, $location, Auth) {
 
 	$http.get('/api/requests').then(function(response) {
 	    $scope.requests = response.data;
-	});	
+	});
 
-	$scope.requestnotes = "testing this thing";
+	$scope.$on('$routeChangeStart', function(next, current) {
+	   if ($location.url() != '/requests/edit') {
+	       reqservice.clean();
+	   }
+	});
+
+	var request_data = reqservice.list;
+	if(request_data.length > 0) {
+      $scope.reqid = request_data[0].id;
+      $scope.beername = request_data[0].beer_name;
+      $scope.clientid = request_data[0].client_id;
+      $scope.clientname = request_data[0].client_name;
+      $scope.kegsize = request_data[0].keg_size;
+      $scope.notes = request_data[0].notes;
+      $scope.orderprice = request_data[0].order_price;
+      $scope.status = request_data[0].status;
+      $scope.timestamp = request_data[0].timestamp;
+      $scope.totalkegs = request_data[0].total_kegs;        
+    }
+
 	//Get current user
 	//console.log(Auth.getCurrentUser());
 
@@ -29,7 +48,6 @@ function RequestController($scope, $http, $location, Auth) {
 		var user = Auth.getCurrentUser();
 		//Calculate price for order, read cost of keg according to size from config file
 		var cost = this.quantity * kegs['k'+this.unit];
-
 		/*
 		Flow for new request:
 		Request inserted into DB with status received [received, confirmed, shipped, fulfilled]
@@ -76,7 +94,8 @@ function RequestController($scope, $http, $location, Auth) {
 		} else {
 			alert('Provide required information before submitting.');
 		}
-		$location.url('/');
+		//$location.url('/requests');
+		window.location.href = "http://localhost:9000/requests";//This needs to be changed.
 	}
 	
 	/*
@@ -88,24 +107,58 @@ function RequestController($scope, $http, $location, Auth) {
 	};
 	*/
 	$scope.view = function(request) {
-		console.log(request);
-		console.log(request._id);
-		$scope.requestnotes = request.notes;
-		//requests.edit(request);    
-	    //redirect to beer view.
+		reqservice.edit(request);
 	    $location.url('requests/edit');
 	};
 
-	$scope.edit = function(request) {
-		console.log('edit controller');
-		//Put call, just like for beers, and ID 
+	$scope.edit = function() {
+		var user = Auth.getCurrentUser();
+		//Calculate price for order, read cost of keg according to size from config file
+		var cost = this.totalkegs * kegs['k'+this.kegsize];
+
+		if($scope.totalkegs && $scope.kegsize && $scope.beername) {
+			var notes = (this.notes === undefined)? "" : this.notes;
+			$http.put('/api/requests/'+this.reqid,
+			{
+				total_kegs: this.totalkegs,
+				keg_size: this.kegsize,
+				beer_name: this.beername,
+				notes: notes,
+				status: 'received & updated',
+				//timestamp: Date.now,
+				client_name: user.client_name,
+				client_id: user._id,
+				order_price: cost
+
+			}).then(function successCallback(response) {
+				// this callback will be called asynchronously
+				// when the response is available
+				$scope.totalkegs = '';
+				$scope.notes = '';
+				$scope.kegsize = '';
+				$scope.beername = '';
+				alert('Beer request updated successfully!');
+			}, function errorCallback(response) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+				alert(response);
+			});
+		} else {
+			alert('Provide required information before submitting request edition.');
+		}
+		$location.url('/');
 	    
 	};
 
+	$scope.delete = function(request) {
+		$http.delete('/api/requests/' + request._id);      
+    	$scope.requests.splice(this.$index, 1);
+    	alert('Request deleted successfully');
+	};
     
 }
 
 angular.module('cerveceriaApp')
   .controller('RequestController', RequestController);
-
 }) ();
+

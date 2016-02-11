@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cerveceriaApp')
-  .controller('BeerCtrl', function($scope, $http, User, Auth, beers) {
+  .controller('BeerCtrl', function($scope, $http, User, Auth, beers, $location) {
     var beer_data = beers.list;
     
     $scope.errors = {};
@@ -52,6 +52,7 @@ angular.module('cerveceriaApp')
       }
       //clean beer list at service
       beers.clean();
+      $location.url('/actions');
     };
 
     $scope.getbeers = function() {
