@@ -26,12 +26,12 @@ function RequestController($scope, $http, $location, Auth, reqservice) {
       $scope.beername = request_data[0].beer_name;
       $scope.clientid = request_data[0].client_id;
       $scope.clientname = request_data[0].client_name;
-      $scope.kegsize = request_data[0].keg_size;
+      $scope.kegsize = request_data[0].keg_size.toString();
       $scope.notes = request_data[0].notes;
       $scope.orderprice = request_data[0].order_price;
       $scope.status = request_data[0].status;
       $scope.timestamp = request_data[0].timestamp;
-      $scope.totalkegs = request_data[0].total_kegs;        
+      $scope.totalkegs = request_data[0].total_kegs; 
     }
 
 	//Get current user
