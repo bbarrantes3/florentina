@@ -18,14 +18,13 @@ function ActionController($scope, $http, beers, $location) {
 
 	$scope.edit = function(beer) {
 		//Service to pass beer to beer.controller
-    beers.edit(beer);    
-    //redirect to beer view.
-    $location.url('/beer');
+	    beers.edit(beer);
+	    //redirect to beer view.
+	    $location.url('/beer');
 	};
     
 }
 
 angular.module('cerveceriaApp')
   .controller('ActionController', ActionController);
-
 }) ();
