@@ -17,6 +17,7 @@ angular.module('cerveceriaApp')
                           '/';
           Auth.logout();
           $location.path(referrer);
+          $location.url('/');
         }
       })
       .when('/signup', {

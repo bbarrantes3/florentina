@@ -21,7 +21,7 @@ angular.module('cerveceriaApp')
     }
 
     $scope.update = function() {
-		alert("user updated successfully");
+		alert("User update disabled temporarily");
 		/*
 
 		if($scope.totalkegs && $scope.kegsize && $scope.beername) {
