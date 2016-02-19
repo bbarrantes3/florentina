@@ -35,12 +35,16 @@ User.find({}).removeAsync()
     User.createAsync({
       provider: 'local',
       name: 'Test User',
+      client_name: 'Test Client',
+      address: 'Test Address',
       email: 'test@example.com',
       password: 'test'
     }, {
       provider: 'local',
       role: 'admin',
       name: 'Admin',
+      client_name: 'Administration',
+      address: 'Ciudad Quesada',
       email: 'admin@example.com',
       password: 'admin'
     })
